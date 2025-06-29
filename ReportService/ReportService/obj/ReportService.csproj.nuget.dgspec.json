@@ -1,28 +1,33 @@
 {
   "format": 1,
   "restore": {
-    "/Users/r.musairov/Downloads/test/ReportService/ReportService/ReportService.csproj": {}
+    "D:\\Git\\test-en_ReportService\\ReportService\\ReportService\\ReportService.csproj": {}
   },
   "projects": {
-    "/Users/r.musairov/Downloads/test/ReportService/ReportService/ReportService.csproj": {
+    "D:\\Git\\test-en_ReportService\\ReportService\\ReportService\\ReportService.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/r.musairov/Downloads/test/ReportService/ReportService/ReportService.csproj",
+        "projectUniqueName": "D:\\Git\\test-en_ReportService\\ReportService\\ReportService\\ReportService.csproj",
         "projectName": "ReportService",
-        "projectPath": "/Users/r.musairov/Downloads/test/ReportService/ReportService/ReportService.csproj",
-        "packagesPath": "/Users/r.musairov/.nuget/packages/",
-        "outputPath": "/Users/r.musairov/Downloads/test/ReportService/ReportService/obj/",
+        "projectPath": "D:\\Git\\test-en_ReportService\\ReportService\\ReportService\\ReportService.csproj",
+        "packagesPath": "C:\\Users\\sun\\.nuget\\packages\\",
+        "outputPath": "D:\\Git\\test-en_ReportService\\ReportService\\ReportService\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "/Users/r.musairov/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\sun\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp2.0"
         ],
         "sources": {
-          "https://api.nuget.org/v3/index.json": {},
-          "https://gitlab.com/api/v4/projects/18886462/packages/nuget/index.json": {},
-          "https://gitlab.com/api/v4/projects/47783556/packages/nuget/index.json": {}
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "netcoreapp2.0": {
@@ -34,7 +39,13 @@
           "warnAsError": [
             "NU1605"
           ]
-        }
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "netcoreapp2.0": {
@@ -90,7 +101,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.101/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301\\RuntimeIdentifierGraph.json"
         }
       }
     }

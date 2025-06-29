@@ -1,3 +1,8 @@
 is_global = true
 build_property.RootNamespace = ReportService
-build_property.ProjectDir = /Users/r.musairov/Downloads/test/ReportService/ReportService/
+build_property.ProjectDir = D:\Git\test-en_ReportService\ReportService\ReportService\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.CsWinRTUseWindowsUIXamlProjections = false
+build_property.EffectiveAnalysisLevelStyle = 
+build_property.EnableCodeStyleSeverity = 
