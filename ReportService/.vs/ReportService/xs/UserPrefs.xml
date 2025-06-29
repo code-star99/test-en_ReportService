@@ -1,0 +1,29 @@
+﻿<Properties StartupConfiguration="{231E862D-6509-4701-B706-B7E17887C9B2}|Default">
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workbench ActiveDocument="ReportService/Controllers/ReportController.cs">
+    <Files>
+      <File FileName="ReportService/Controllers/ReportController.cs" Line="24" Column="1" />
+      <File FileName="../../../../../usr/local/share/dotnet/sdk/7.0.101/Sdks/Microsoft.NET.Sdk/targets/Microsoft.NET.EolTargetFrameworks.targets" Line="28" Column="5" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="ReportService" expanded="True">
+            <Node name="ReportService" expanded="True">
+              <Node name="Controllers" expanded="True">
+                <Node name="ReportController.cs" selected="True" />
+              </Node>
+              <Node name="Domain" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.ItemProperties.ReportService PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+</Properties>
