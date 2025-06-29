@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using ReportService.Domain.Entities;
 
 namespace ReportService.Domain.Repositories
 {
