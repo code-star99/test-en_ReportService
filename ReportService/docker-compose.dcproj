@@ -5,7 +5,7 @@
     <DockerTargetOS>Linux</DockerTargetOS>
     <ProjectGuid>ca96146c-735d-4388-bcb2-cdef1564e951</ProjectGuid>
     <DockerLaunchBrowser>True</DockerLaunchBrowser>
-    <DockerServiceUrl>http://localhost:{ServicePort}/api/values</DockerServiceUrl>
+    <DockerServiceUrl>http://localhost:{ServicePort}/api/test</DockerServiceUrl>
     <DockerServiceName>reportservice</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>

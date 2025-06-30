@@ -1,3 +1,5 @@
 ReportService/obj/
 ReportService/.idea/
 ReportService/.vs/
+ReportService.Tests/bin
+ReportService.Tests/obj
