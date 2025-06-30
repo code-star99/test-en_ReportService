@@ -1,8 +1,8 @@
-﻿
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using ReportService.Domain.Entities;
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -23,6 +23,8 @@ namespace ReportService.Domain.Services
 
         public async Task<decimal> CalculateSalaryAsync(Employee employee) 
         {
+            if (ShouldUseMockData()) return await GetMockSalaryAsync(employee);            
+
             try
             {
                 if (string.IsNullOrEmpty(employee?.Inn) || string.IsNullOrEmpty(employee?.EmployeeCode))
@@ -48,11 +50,12 @@ namespace ReportService.Domain.Services
                 _logger.LogWarning(e, "Failed to calculate salary for employee {EmployeeName}", employee?.Name);
                 return 0;
             }
-
         }
 
         public async Task<string> GetEmployeeCodeAsync(string inn)
         {
+            if (ShouldUseMockData()) return await GetMockEmployeeCodeAsync(inn);            
+
             try
             {
                 if (string.IsNullOrEmpty(inn))
@@ -72,8 +75,58 @@ namespace ReportService.Domain.Services
                 _logger.LogWarning(ex, "Failed to get employee code for INN {Inn}", inn);
                 return "DEFAULT";
             }
-
         }
 
+        private bool ShouldUseMockData()
+        {
+            var useMockData = _configuration["UseMockData"];
+            return !string.IsNullOrEmpty(useMockData) && useMockData.ToLower() == "true";
+        }
+
+        private async Task<string> GetMockEmployeeCodeAsync(string inn)
+        {
+            await Task.Delay(10); 
+            _logger.LogInformation("Using mock data for employee code for INN {Inn}", inn);
+
+            var mockEmployeeCodes = new Dictionary<string, string>
+            {
+                ["123456789"] = "EMPCODE#001",
+                ["234567890"] = "EMPCODE#002", 
+                ["345678901"] = "EMPCODE#003",
+                ["456789012"] = "EMPCODE#004",
+                ["567890123"] = "EMPCODE#005",
+                ["678901234"] = "EMPCODE#006",
+                ["789012345"] = "EMPCODE#007",
+                ["890123456"] = "EMPCODE#008",
+                ["901234567"] = "EMPCODE#009",
+                ["012345678"] = "EMPCODE#010",
+                ["123456780"] = "EMPCODE#011"
+            };
+
+            return mockEmployeeCodes.ContainsKey(inn) ? mockEmployeeCodes[inn] : "DEFAULT";
+        }
+
+        private async Task<decimal> GetMockSalaryAsync(Employee employee)
+        {
+            await Task.Delay(10);
+            _logger.LogInformation("Using mock data for salary for {EmployeeName}", employee?.Name);
+
+            var mockSalaries = new Dictionary<string, decimal>
+            {
+                ["Andrew Barnes"] = 2200m,
+                ["Gregory Evans"] = 2000m,
+                ["Jacob Smith"] = 2500m,
+                ["Alex Ryan"] = 2700m,
+                ["William Johnson"] = 1800m,
+                ["Damian Carter"] = 2000m,
+                ["Michael Anderson"] = 1500m,
+                ["Philip Rogers"] = 2700m,
+                ["Dmitry Collins"] = 3500m,
+                ["Andrew Miller"] = 3200m,
+                ["Arvid Nelson"] = 3500m
+            };
+
+            return mockSalaries.ContainsKey(employee?.Name) ? mockSalaries[employee.Name] : 0m;
+        }
     }
 }

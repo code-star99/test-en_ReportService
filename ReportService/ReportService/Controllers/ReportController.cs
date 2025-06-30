@@ -1,73 +1,55 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Npgsql;
-using ReportService.Domain;
+using ReportService.Application.Services;
+using System;
+using System.Threading.Tasks;
 
 namespace ReportService.Controllers
 {
     [Route("api/[controller]")]
     public class ReportController : Controller
     {
+        private readonly IReportService _reportService;
+        private readonly ILogger<ReportController> _logger;
+        public ReportController(
+            IReportService reportService,
+            ILogger<ReportController> logger)
+        {
+            _reportService = reportService;
+            _logger = logger;
+        }
+
         [HttpGet]
         [Route("{year}/{month}")]
-        public IActionResult Download(int year, int month)
+        public async Task<IActionResult> Download(int year, int month)
         {
-            var actions = new List<(Action<Employee, Report>, Employee)>();
-            var report = new Report() { S = MonthNameResolver.MonthName.GetName(year, month) };
-            var connString = "Host=192.168.99.100;Username=postgres;Password=1;Database=employee";
-            
-
-            var conn = new NpgsqlConnection(connString);
-            conn.Open();
-            var cmd = new NpgsqlCommand("SELECT d.name from deps d where d.active = true", conn);
-            var reader = cmd.ExecuteReader();
-            while (reader.Read())
+            if (year < 1900 || year > 2100)
             {
-                List<Employee> emplist = new List<Employee>();
-                var depName = reader.GetString(0);
-                var conn1 = new NpgsqlConnection(connString);
-                conn1.Open();
-                var cmd1 = new NpgsqlCommand("SELECT e.name, e.inn, d.name from emps e left join deps d on e.departmentid = d.id", conn1);
-                var reader1 = cmd1.ExecuteReader();
-                while (reader1.Read())
-                {
-                    var emp = new Employee() { Name = reader1.GetString(0), Inn = reader1.GetString(1), Department = reader1.GetString(2) };
-                    emp.BuhCode = EmpCodeResolver.GetCode(emp.Inn).Result;
-                    emp.Salary = emp.Salary();
-                    if (emp.Department != depName)
-                        continue;
-                    emplist.Add(emp);
-                }
-
-                actions.Add((new ReportFormatter(null).NL, new Employee()));
-                actions.Add((new ReportFormatter(null).WL, new Employee()));
-                actions.Add((new ReportFormatter(null).NL, new Employee()));
-                actions.Add((new ReportFormatter(null).WD, new Employee() { Department = depName } ));
-                for (int i = 1; i < emplist.Count(); i ++)
-                {
-                    actions.Add((new ReportFormatter(emplist[i]).NL, emplist[i]));
-                    actions.Add((new ReportFormatter(emplist[i]).WE, emplist[i]));
-                    actions.Add((new ReportFormatter(emplist[i]).WT, emplist[i]));
-                    actions.Add((new ReportFormatter(emplist[i]).WS, emplist[i]));
-                }  
-
+                _logger.LogWarning("Invalid year parameter: {Year}", year);
+                return BadRequest(new { error = "Year must be between 1900 and 2100" });
             }
-            actions.Add((new ReportFormatter(null).NL, null));
-            actions.Add((new ReportFormatter(null).WL, null));
 
-            foreach (var act in actions)
+            if (month < 1 || month > 12)
             {
-                act.Item1(act.Item2, report);
+                _logger.LogWarning("Invalid month parameter: {Month}", month);
+                return BadRequest(new { error = "Month must be between 1 and 12" });
             }
-            report.Save();
-            var file = System.IO.File.ReadAllBytes("D:\\report.txt");
-            var response = File(file, "application/octet-stream", "report.txt");
-            return response;
+
+            try
+            {
+                var result = await _reportService.GenerateReportAsync(year, month);
+                _logger.LogInformation("Report generated successfully for {Year}/{Month}", year, month);
+                return result;
+            }
+            catch (Exception e)
+            {
+                // This should rarely happen now since the service handles most errors
+                _logger.LogError(e, "Unexpected error in controller for {Year}/{Month}", year, month);
+                return StatusCode(500, new { 
+                    error = "An unexpected error occurred while processing your request"
+                });
+            }
         }
     }
 }
