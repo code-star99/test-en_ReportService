@@ -1,0 +1,8 @@
+is_global = true
+build_property.RootNamespace = ReportService.Tests
+build_property.ProjectDir = D:\Git\test-en_ReportService\ReportService.Tests\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.CsWinRTUseWindowsUIXamlProjections = false
+build_property.EffectiveAnalysisLevelStyle = 
+build_property.EnableCodeStyleSeverity = 

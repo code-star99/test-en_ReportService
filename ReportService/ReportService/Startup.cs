@@ -27,13 +27,10 @@ namespace ReportService
             // Register HttpClient for external service calls (.NET Core 2.0 approach)
             services.AddSingleton<HttpClient>();
 
-            // Register repositories
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 
-            // Register domain services
             services.AddScoped<IEmployeeService, EmployeeService>();
 
-            // Register application services
             services.AddScoped<IReportService, ReportService.Application.Services.ReportService>();
         }
 
